@@ -108,4 +108,36 @@ def update_document(doc_id, params):
 
     return post_json(upload_url, params)
     
+def upload_project(title, description, document_list):
+    """ Create a new project with a title and description. 
+
+    doclist=('1234-my-doc', '12345-other-doc')
+    result = upload_project_new('newproject', 'new project description', doclist)
+    project_id_returned = result['project']['id']
+    print result
+    newid=-1
+    try:
+        newid = int(project_id_returned)
+        print "Successfully created project %s" % (newid)
+    except:
+        print "Couldn't create project"
+        assert False
+    """
+
+    params = [
+    ('title',title),
+    ('description',description),
+    ]
+    for d in document_list:
+        params.append(('document_ids[]',d))
+
+    encoded_params = urlencode(params)
+
+    upload_url = "%sapi/projects.json" % (url_base)
+    request = urllib2.Request(upload_url, params)
+    request.add_header('Authorization','Basic %s' % auth)
+    return post_json(upload_url, encoded_params)
+
+
+    
 
