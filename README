@@ -1,5 +1,10 @@
 """
-Routines to wrangle document cloud projects into a local DocumentCollection and vice versa. Assumes a db model has been built with documents/models.py and manage.py sycndb--and that there is a properly tagged 'project' of documents on document cloud that's been shared with the owner of the documentcloud credentials. 
+Routines to wrangle document cloud projects into a local 
+DocumentCollection and vice versa. Assumes a db model has 
+been built with documents/models.py and manage.py sycndb--
+and that there is a properly tagged 'project' of documents
+ on document cloud that's been shared with the owner of the
+ documentcloud credentials. 
 
 
 $python manage.py shell
@@ -7,7 +12,9 @@ $python manage.py shell
 >>> from documents import docwrangler
 >>> docwrangler.create_local_project(1234)
 
-Reporters often leave out the related article URL, but this URL is the same for all the documents across the project. So alter it in the django admin: /admin/documents/documentcollection/1/
+Reporters often leave out the related article URL, but this 
+URL is the same for all the documents across the project. So 
+alter it in the django admin: /admin/documents/documentcollection/1/
 
 Then push the url back to dc documents:
 
