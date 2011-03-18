@@ -1,6 +1,14 @@
+""" 
+
+Tools for working with document cloud documents 
+No support for entities yet, unfortunately
+
+"""
+
 import MultipartPostHandler
 import base64
 import urllib2
+from urllib import urlencode
 import simplejson
 
 # set up openers
@@ -8,8 +16,8 @@ post_opener = urllib2.build_opener(MultipartPostHandler.MultipartPostHandler)
 get_opener =  urllib2.build_opener()
 
 # credentials
-login=''
-password = ''
+login='your document cloud login'
+password = 'and password'
 
 # auth string to reuse
 auth = base64.encodestring('%s:%s' % (login, password))[:-1]
@@ -79,6 +87,7 @@ def upload_document(thefile, params):
     upload_url = "%sapi/upload.json" % (url_base)
     return post_json(upload_url, params)
 
+
 def update_document(doc_id, params):
     """ Params is a dictionary of parameters that looks like this:
 
@@ -103,14 +112,16 @@ def update_document(doc_id, params):
     # set the method to be put. See DC docs. 
     params['_method']='put'
     upload_url = "%sapi/documents/%s.json" % (url_base, doc_id)
+    print "using url: %s" % (upload_url)
     request = urllib2.Request(upload_url, params)
     request.add_header('Authorization','Basic %s' % auth)
 
     return post_json(upload_url, params)
-    
+
+
 def upload_project(title, description, document_list):
     """ Create a new project with a title and description. 
-
+    
     doclist=('1234-my-doc', '12345-other-doc')
     result = upload_project_new('newproject', 'new project description', doclist)
     project_id_returned = result['project']['id']
@@ -137,7 +148,4 @@ def upload_project(title, description, document_list):
     request = urllib2.Request(upload_url, params)
     request.add_header('Authorization','Basic %s' % auth)
     return post_json(upload_url, encoded_params)
-
-
     
-
