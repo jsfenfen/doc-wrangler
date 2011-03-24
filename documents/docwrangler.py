@@ -27,10 +27,26 @@ Or unpublish it
 
 from datetime import datetime
 from django.template.defaultfilters import slugify
-from djangoproject.documents.models import *
-from djangoproject.documents.utils import *
+from workshop.documents.models import *
+from workshop.documents.utils import *
 
 
+
+def show_projects():
+    """ Show document cloud projects and id numbers
+    """
+    project_json="-1"
+    result = get_project_json()
+    print result
+#    for project in result['projects']:
+
+
+def show_local_projects():
+    """ Show local document cloud slugs 
+    """
+    collections = DocumentCollection.objects.all()
+    for collection in collections:
+        print "Found collection slugged: %s" % (collection.collection_slug)    
 
 def push_project(this_collection_slug):
     """ copy a project that exists locally to document cloud """
