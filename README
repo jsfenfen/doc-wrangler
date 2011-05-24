@@ -4,30 +4,18 @@ DocumentCollection and vice versa. Assumes a db model has
 been built with documents/models.py and manage.py sycndb--
 and that there is a properly tagged 'project' of documents
  on document cloud that's been shared with the owner of the
- documentcloud credentials. 
+ documentcloud credentials. Also assumes credentials are set in the settings.py file. 
 
+Rewritten as a bunch of commands to be run remotely via fabric.
 
-$python manage.py shell
-
->>> from documents import docwrangler
->>> docwrangler.create_local_project(1234)
-
-Reporters often leave out the related article URL, but this 
-URL is the same for all the documents across the project. So 
-alter it in the django admin: /admin/documents/documentcollection/1/
-
-Then push the url back to dc documents:
-
->>> docwrangler.push_project_url('your-local-DocumentCollection-slug')
-
-And publish the whole thing:
-
->>> docwrangler.publish_now('your-DocumentCollection-slug')
-
-Or unpublish it 
-
->>> docwrangler.unpublish('your-DocumentCollection-slug')
-
-
+Commands (can be run via fab):
+  show_projects.py 
+  show_local_projects.py [-s searchterm]
+  pull_project.py  project_id 
+  pull_document.py document_id [project_id - default is none]
+  push_project_url.py project_id
+  publish_local.py project_id
+  publish_now.py project_id
+  unpublish_now.py project_id
 
 """
